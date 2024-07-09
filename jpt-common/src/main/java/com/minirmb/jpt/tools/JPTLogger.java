@@ -22,7 +22,12 @@ import java.util.logging.*;
 public class JPTLogger {
     private static Logger logger;
     private final static int logSize = 10 * 1024 * 1024;
-
+    //TODO 这是不可以多线程的
+    private static final ThreadLocal<SimpleDateFormat> DateFormat = ThreadLocal.withInitial(
+            () -> {
+                return new SimpleDateFormat("yyyyMMdd_HHmmss_SSS");
+            }
+    );//
 
     private static Logger getLogger() {
         if (null == logger) {
@@ -61,16 +66,15 @@ public class JPTLogger {
                 e.printStackTrace();
                 throw new IllegalArgumentException("Can not init log!!!");
             }
-            //TODO 这是不可以多线程的
-            final SimpleDateFormat DateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss_SSS");
-            logger.info(DateFormat.format(new Date()) + " log initialized. log file : " + logFile);
+
+            logger.info(DateFormat.get().format(new Date()) + " log initialized. log file : " + logFile);
         }
         return logger;
     }
 
     private static String GenerateLogString(Object... objs) {
-        final SimpleDateFormat DateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss_SSS");
-        final StringBuilder builder = new StringBuilder(DateFormat.format(new Date()) + " ");
+        //final SimpleDateFormat DateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss_SSS");
+        final StringBuilder builder = new StringBuilder(DateFormat.get().format(new Date()) + " ");
         builder.append(Thread.currentThread().getStackTrace()[2] + " ");
         for (Object o : objs) {
             builder.append(o);
