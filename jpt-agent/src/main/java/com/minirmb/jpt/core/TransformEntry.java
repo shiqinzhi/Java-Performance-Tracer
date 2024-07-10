@@ -1,5 +1,8 @@
 package com.minirmb.jpt.core;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.Instrumentation;
 import java.net.InetAddress;
@@ -87,6 +90,7 @@ public class TransformEntry implements ClassFileTransformer {
 				ClassAdapter ca = new ClassAdapter(tracerId, cw, analysisRange);
 				cr.accept(ca, ClassReader.EXPAND_FRAMES);
 				transformed = cw.toByteArray();
+				writeClassToFile(className, transformed);
 			} catch (RuntimeException re) {
 				re.printStackTrace();
 				JPTLogger.log("advised class failed:", className, ", ClassLoader:", String.valueOf(loader) );
@@ -95,5 +99,20 @@ public class TransformEntry implements ClassFileTransformer {
 		}
 
 		return transformed;
+	}
+
+	private void writeClassToFile(String className, byte[] classBytes) {
+		try {
+			// 将类名中的 '/' 替换为系统文件分隔符
+			String fileName = className.replace('/', File.separatorChar) + ".class";
+			File file = new File("000000", fileName);
+			System.out.println(file.getAbsolutePath());
+			file.getParentFile().mkdirs();
+			FileOutputStream fos = new FileOutputStream(file);
+			fos.write(classBytes);
+			fos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
