@@ -63,6 +63,7 @@ public class RoundAdviceAdapter extends AdviceAdapter {
 		mv.visitLabel(endFinally);
 		onFinally(ATHROW);
 		mv.visitInsn(ATHROW);
+		//用于设置方法的最大堆栈大小和本地变量数目。这个方法必须在方法的结尾调用，以便通知 ASM 框架该方法的最大堆栈大小和本地变量数目是多少。
 		mv.visitMaxs(maxStack, maxLocals);
 	}
 }
