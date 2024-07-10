@@ -2,6 +2,8 @@ package com.thirdpart.jpt.test.xxx;
 
 import com.thirdpart.jpt.test.xxx.tp1.AAAA3;
 
+import java.util.Random;
+
 public class TestEntry {
 
     public String sayHello0(String memo) {
@@ -15,6 +17,11 @@ public class TestEntry {
             new TestEntry().sayHello2();
         } catch (Exception e1) {
 
+        }
+        final Random random = new Random();
+        final int r = random.nextInt(100);
+        if (r > 50) {
+            throw new RuntimeException("随机异常！");
         }
         return 999;
     }
@@ -37,6 +44,7 @@ public class TestEntry {
             sayHello5();
         }
     }
+
     public void sayHello5() {
     }
 }
