@@ -14,5 +14,11 @@ public class Test1 {
 
         }
         new Test2().test2();
+        try {
+            System.out.println("等====关闭===");
+            Thread.sleep(3000+new Random().nextInt(100));
+        } catch (Exception e) {
+
+        }
     }
 }

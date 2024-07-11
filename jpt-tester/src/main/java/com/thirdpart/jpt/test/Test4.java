@@ -7,11 +7,12 @@ import java.util.Random;
  */
 public class Test4 {
     public void test4(String str) {
+        System.out.println("当前我在第四层:" + str);
         try {
             Thread.sleep(500+new Random().nextInt(100));
         } catch (Exception e) {
 
         }
-        System.out.println("当前我在第四层:" + str);
+
     }
 }
