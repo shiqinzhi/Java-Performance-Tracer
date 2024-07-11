@@ -14,6 +14,11 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>com.minirmb</groupId>
+			<artifactId>jpt-collector</artifactId>
+			<version>0.2-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>

@@ -8,9 +8,15 @@ import java.util.Random;
 public class Test3 {
     public void test3(String str) {
         System.out.println("第三层：有一个参数:" + str);
+        try {
+            Thread.sleep(500+new Random().nextInt(100));
+        } catch (Exception e) {
+
+        }
         if (new Random().nextInt(100) > 50) {
             throw new RuntimeException("Test3 throw exception");
         }
+
         new Test4().test4(str);
     }
 }
