@@ -3,7 +3,7 @@ package com.minirmb.jpt.common;
 public class ClientConfig {
 
     public static String GetServerIp(){
-        return System.getenv().getOrDefault("jpt_nio_server_ip", "localhost");
+        return System.getenv().getOrDefault("jpt_nio_server_ip", "127.0.0.1");
     }
 
     public static int GetServerPort(){

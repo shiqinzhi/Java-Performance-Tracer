@@ -4,3 +4,8 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 nvm install node   # 安装最新版本的 Node.js
 nvm use node       # 使用安装的 Node.js 版本
 npm install -g yarn
+
+
+2
+java测试的时候
+-javaagent:/Users/haiyangshi/Documents/key/Java-Performance-Tracer/lib/jpt-agent-0.2-SNAPSHOT.jar
