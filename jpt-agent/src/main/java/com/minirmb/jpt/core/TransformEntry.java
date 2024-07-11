@@ -90,7 +90,12 @@ public class TransformEntry implements ClassFileTransformer {
 				ClassAdapter ca = new ClassAdapter(tracerId, cw, analysisRange);
 				cr.accept(ca, ClassReader.EXPAND_FRAMES);
 				transformed = cw.toByteArray();
-				writeClassToFile(className, transformed);
+				try {
+					writeClassToFile(className, transformed);
+				} catch (Exception e) {
+					//TODO
+					e.printStackTrace();
+				}
 			} catch (RuntimeException re) {
 				re.printStackTrace();
 				JPTLogger.log("advised class failed:", className, ", ClassLoader:", String.valueOf(loader) );
@@ -106,7 +111,7 @@ public class TransformEntry implements ClassFileTransformer {
 			// 将类名中的 '/' 替换为系统文件分隔符
 			String fileName = className.replace('/', File.separatorChar) + ".class";
 			File file = new File("000000", fileName);
-			System.out.println(file.getAbsolutePath());
+			//System.out.println(file.getAbsolutePath());
 			file.getParentFile().mkdirs();
 			FileOutputStream fos = new FileOutputStream(file);
 			fos.write(classBytes);
