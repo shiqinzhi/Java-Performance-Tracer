@@ -24,7 +24,10 @@ public class ClassAdapter extends ClassVisitor implements Opcodes {
 	@Override
 	public void visit(int version, int access, String className, String signature, String superName,
 			String[] interfaces) {
-		cv.visit(version, access, className, signature, superName, interfaces);
+		//TOdo cv其实就是为了写，任何地方都必须调用这个cv，如果cv不为空的话，否则写class肯定会出现问题
+		//cv.visit(version, access, className, signature, superName, interfaces);
+		//其实这里比较好的写法应该是
+		super.visit(version, access, className, signature, superName, interfaces);
 		this.className = className;
 		isInterface = (access & Opcodes.ACC_INTERFACE) != 0;
 	}

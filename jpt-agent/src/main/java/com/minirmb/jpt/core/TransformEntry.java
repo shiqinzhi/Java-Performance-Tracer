@@ -86,6 +86,7 @@ public class TransformEntry implements ClassFileTransformer {
 		if ( !isSystemPackage && this.analysisRange.isInIncludeRange(className)) {
 			try {
 				ClassReader cr = new ClassReader(classfileBuffer);
+				//TODO ClassWriter.COMPUTE_FRAMES 会隐式地包含 ClassWriter.COMPUTE_MAXS
 				ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
 				ClassAdapter ca = new ClassAdapter(tracerId, cw, analysisRange);
 				cr.accept(ca, ClassReader.EXPAND_FRAMES);
