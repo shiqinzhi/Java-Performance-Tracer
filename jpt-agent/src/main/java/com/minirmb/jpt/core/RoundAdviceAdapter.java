@@ -24,6 +24,10 @@ public class RoundAdviceAdapter extends AdviceAdapter {
 		this.tracerId = tracerId;
 	}
 
+	/**
+	 * 在 visitCode 方法中，必须先调用 super.visitCode()，因为这会通知 ASM 开始处理新的方法代码块。
+	 * 如果你在调用 super.visitCode() 之前插入自定义逻辑，ASM 还没有准备好接受这些指令。
+	 */
 	@Override
 	public void visitCode() {
 		super.visitCode();
@@ -56,6 +60,12 @@ public class RoundAdviceAdapter extends AdviceAdapter {
 				"(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;J)V", false);
 	}
 
+	/**
+	 * 在 visitMaxs 方法中，mv.visitMaxs(maxStack, maxLocals) 必须在最后调用。这是因为在调用 visitMaxs 之前，你需要完成所有的字节码指令，
+	 * 包括异常处理块的定义和 finally 块的逻辑插入。visitMaxs 通知 ASM 框架方法的最大堆栈大小和本地变量数目，并且这个信息只有在所有指令都插入完成之后才能确定。
+	 * @param maxStack maximum stack size of the method.
+	 * @param maxLocals maximum number of local variables for the method.
+	 */
 	@Override
 	public void visitMaxs(int maxStack, int maxLocals) {
 		Label endFinally = new Label();
